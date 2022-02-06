@@ -23,7 +23,7 @@ if ($id == $loguserid) {
 	$loguser['newcomments'] = false;
 }
 
-if ($loguserid && ($_GET['token'] == $loguser['token'] || $_POST['token'] == $loguser['token'])) {
+if ($loguserid && (isset($_REQUEST['token']) && $_REQUEST['token'] == $loguser['token'])) {
 	if (isset($_GET['block'])) {
 		AssertForbidden("blockLayouts");
 		$block = (int)$_GET['block'];
@@ -87,11 +87,11 @@ $profileParts = [];
 $foo = [];
 $foo["Name"] = $minipic . htmlspecialchars($user['displayname'] ? $user['displayname']." (".$user['name'].")" : $user['name']);
 $foo["Power"] = getPowerlevelName($user['powerlevel']);
-if ($title)
+if (isset($title))
 	$foo["Title"] = $title;
-if ($currentRank)
+if (isset($currentRank))
 	$foo["Rank"] = $currentRank;
-if ($toNextRank)
+if (isset($toNextRank))
 	$foo["To next rank"] = $toNextRank;
 $foo["Total posts"] = format("{0} ({1} per day)", $posts, $averagePosts);
 $foo["Total threads"] = format("{0} ({1} per day)", $threads, $averageThreads);
@@ -138,7 +138,7 @@ $profileParts["General information"] = $foo;
 
 $foo = [];
 $foo["Email address"] = $emailField;
-if ($homepage)
+if (isset($homepage))
 	$foo["Homepage"] = $homepage;
 $profileParts["Contact information"] = $foo;
 

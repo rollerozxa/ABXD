@@ -35,7 +35,7 @@ makeBreadcrumbs($crumbs);
 $canDeleteComments = ($id == $loguserid || $loguser['powerlevel'] > 2) && IsAllowed("deleteComments") && $loguser['powerlevel'] >= 0;
 $canComment = $loguser['powerlevel'] >= 0;
 
-if ($loguserid && ($_GET['token'] == $loguser['token'] || $_POST['token'] == $loguser['token'])) {
+if ($loguserid && (isset($_REQUEST['token']) && $_REQUEST['token'] == $loguser['token'])) {
 	if ($canDeleteComments && $_GET['action'] == "delete") {
 		AssertForbidden("deleteComments");
 		Query("delete from {usercomments} where uid={0} and id={1}", $id, (int)$_GET['cid']);
@@ -82,6 +82,7 @@ $pagelinks = PageLinksInverted(actionLink("profile", $id, "from="), $cpp, $from,
 $commentList = "";
 $commentField = "";
 if (NumRows($rComments)) {
+	$cellClass = 0;
 	while($comment = Fetch($rComments)) {
 		if ($canDeleteComments)
 			$deleteLink = "<small style=\"float: right; margin: 0px 4px;\">".

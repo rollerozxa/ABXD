@@ -296,7 +296,7 @@ function process(DOMNode $current_node) {
 			process($node);
 
 		// BBCode hack is NOT allowed to exist
-		if ($current_node->tagName === 'bbcodehack') {
+		if (isset($current_node->tagName) && $current_node->tagName === 'bbcodehack') {
 			$value = $current_node->hasAttribute('value') ? $current_node->getAttribute('value') : NULL;
 			$nodes = $current_node->hasAttribute('pre')   ? $current_node->getAttribute('pre')   : $current_node->childNodes;
 			$nodes = $bbcode[$current_node->getAttribute('name')]['callback']($current_node->ownerDocument, $nodes, $value, [
@@ -312,7 +312,7 @@ function process(DOMNode $current_node) {
 			$current_node->parentNode->removeChild($current_node);
 		}
 		// Move node below when invalid.
-		elseif ($current_node->tagName && !isset($filter_tags[$current_node->tagName])) {
+		elseif (isset($current_node->tagName) && $current_node->tagName && !isset($filter_tags[$current_node->tagName])) {
 			while ($current_node->hasChildNodes())
 				$current_node->parentNode->insertBefore($current_node->childNodes->item(0), $current_node);
 			$current_node->parentNode->removeChild($current_node);
@@ -340,7 +340,7 @@ function process(DOMNode $current_node) {
 					}
 				}
 
-			if (isset($filter_mandatory[$current_node->tagName]))
+			if (isset($current_node->tagName) && isset($filter_mandatory[$current_node->tagName]))
 				foreach ($filter_mandatory[$current_node->tagName] as $attr => $value)
 					if (!$current_node->hasAttribute($attr))
 						$current_node->setAttribute($attr, $value);

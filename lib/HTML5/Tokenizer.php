@@ -359,7 +359,7 @@ class HTML5_Tokenizer {
 							'data' => $result,
 						]);
 
-						$lastFourChars .= $chars;
+						$lastFourChars .= isset($chars) ? $chars : '';
 						if (strlen($lastFourChars) > 4) $lastFourChars = substr($lastFourChars, -4);
 
 						$state = 'data';
