@@ -1,0 +1,15 @@
+*~
+.*.swp
+database.php
+settings.php
+salt.php
+uploader/
+img/logos/*.png
+img/logos/*.gif
+img/logos/*.jpg
+img/logos/*.ico
+!plugins/uploader/
+downloads/
+securimage/
+layoutmaker/
+data/
