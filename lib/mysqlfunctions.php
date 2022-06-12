@@ -1,12 +1,15 @@
 <?php
+$hugeInt = "bigint(20) NOT NULL DEFAULT '0'";
 $genericInt = "int(11) NOT NULL DEFAULT '0'";
 $smallerInt = "int(8) NOT NULL DEFAULT '0'";
 $bool = "tinyint(1) NOT NULL DEFAULT '0'";
 $notNull = " NOT NULL DEFAULT ''";
 $text = "text DEFAULT ''"; //NOT NULL breaks in certain versions/settings.
+$postText = "mediumtext DEFAULT ''";
+$var64 = "varchar(64)".$notNull;
 $var128 = "varchar(128)".$notNull;
-$var256 = "varchar(256)".$notNull;
-$var1024 = "varchar(1024)".$notNull;
+$var256 = "varchar(191)".$notNull;
+$var1024 = "varchar(767)".$notNull;
 $AI = "int(11) NOT NULL AUTO_INCREMENT";
 $keyID = "primary key (`id`)";
 
@@ -59,7 +62,7 @@ function Upgrade() {
 			}
 			if (isset($tableSchema['special']))
 				$create .= ",\n\t".$tableSchema['special'];
-			$create .= "\n) ENGINE=MyISAM;";
+			$create .= "\n) CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci ENGINE=InnoDB;";
 			//print "<pre>".$create."</pre>";
 			Query($create);
 		}
