@@ -149,6 +149,7 @@ function makeForumList($fieldname, $selectedID) {
 
 
 function doLastPosts($compact, $limit) {
+    $theList = "";
 	$hours = 72;
 
 	$rPosts = Query("SELECT

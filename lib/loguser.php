@@ -92,7 +92,7 @@ function doHash($data) {
 
 $loguser = NULL;
 
-if ($_COOKIE['logsession'] && !$ipban) {
+if (isset($_COOKIE['logsession']) && !$ipban) {
 	$session = Fetch(Query("SELECT * FROM {sessions} WHERE id={0}", doHash($_COOKIE['logsession'].$salt)));
 	if ($session) {
 		$loguser = Fetch(Query("SELECT * FROM {users} WHERE id={0}", $session["user"]));
